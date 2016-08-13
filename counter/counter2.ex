@@ -11,15 +11,20 @@ defmodule Counter do
     spawn(__MODULE__, :loop, [count])
   end
   def next(counter) do
+    IO.puts "in def next"
     ref = make_ref()
     send(counter, {:next, self(), ref})
     receive do
-      {:ok, ^ref, count} -> count
+      {:ok, ^ref, count} -> 
+        IO.puts "in def next receive"
+        count
     end
   end
   def loop(count) do
+    IO.puts "in def loop"
     receive do
       {:next, sender, ref} ->
+        IO.puts "in def loop receive"
         send(sender, {:ok, ref, count})
         loop(count + 1)
     end
