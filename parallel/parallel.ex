@@ -11,14 +11,21 @@ defmodule Parallel do
     parent = self()
 
     processes = Enum.map(collection, fn(e) ->
-        spawn_link(fn() ->
+      p = spawn_link(fn() ->
+            IO.puts "before send"
             send(parent, {self(), fun.(e)})
+            IO.puts "after send"
           end)
+        IO.puts "after spawn"
+        p
       end)
+      IO.puts "really after send loop"
 
     Enum.map(processes, fn(pid) ->
         receive do
-          {^pid, result} -> result
+          {^pid, result} ->
+            IO.puts "result received"
+            result
         end
       end)
   end
