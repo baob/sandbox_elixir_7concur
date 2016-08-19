@@ -7,3 +7,7 @@
 ## REPL
 
    iex
+
+## Language Home
+
+[elixir-lang.org](http://elixir-lang.org/)
