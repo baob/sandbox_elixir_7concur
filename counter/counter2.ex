@@ -8,12 +8,14 @@
 #---
 defmodule Counter do
   def start(count) do
-    spawn(__MODULE__, :loop, [count])
+    pid = spawn(__MODULE__, :loop, [count])
+    Process.register(pid, :counter)
+    pid
   end
-  def next(counter) do
+  def next do
     IO.puts "in def next"
     ref = make_ref()
-    send(counter, {:next, self(), ref})
+    send(:counter, {:next, self(), ref})
     receive do
       {:ok, ^ref, count} -> 
         IO.puts "in def next receive"
