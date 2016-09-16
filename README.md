@@ -13,3 +13,8 @@ page 134
 ## Language Home
 
 [elixir-lang.org](http://elixir-lang.org/)
+
+## TODO
+
+* Parrallel reduce p.127
+* Distributed caching p.137
